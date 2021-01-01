@@ -67,7 +67,7 @@
   <update id="updateDefault" parameterType="com.goktech.olala.server.pojo.customer.CtmConsignee">
     update c_consignee
     set
-      IS_DEFAULT = #{isDefault,jdbcType=BIT},
+      IS_DEFAULT = #{isDefault,jdbcType=BIT}
     where CUSTOMER_ADDR_ID = #{customerAddrId,jdbcType=INTEGER}
 
   </update>

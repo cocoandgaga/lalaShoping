@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.goktech.olala.server.dao.goods.GoodsCategBusiMapper">
+  <resultMap id="BaseResultMap" type="com.goktech.olala.server.pojo.goods.GoodsCategBusi">
+    <id column="CATY_BUSI_ID" jdbcType="BIGINT" property="catyBusiId" />
+    <result column="BUSINESS_ID" jdbcType="VARCHAR" property="businessId" />
+    <result column="CATEGORY_ID" jdbcType="INTEGER" property="categoryId" />
+    <result column="PARENT_CATEG_ID" jdbcType="INTEGER" property="parentCategId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from g_categ_busi
+    where CATY_BUSI_ID = #{catyBusiId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.goktech.olala.server.pojo.goods.GoodsCategBusi">
+    insert into g_categ_busi (CATY_BUSI_ID, BUSINESS_ID, CATEGORY_ID, 
+      PARENT_CATEG_ID)
+    values (#{catyBusiId,jdbcType=BIGINT}, #{businessId,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, 
+      #{parentCategId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.goktech.olala.server.pojo.goods.GoodsCategBusi">
+    update g_categ_busi
+    set BUSINESS_ID = #{businessId,jdbcType=VARCHAR},
+      CATEGORY_ID = #{categoryId,jdbcType=INTEGER},
+      PARENT_CATEG_ID = #{parentCategId,jdbcType=INTEGER}
+    where CATY_BUSI_ID = #{catyBusiId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select CATY_BUSI_ID, BUSINESS_ID, CATEGORY_ID, PARENT_CATEG_ID
+    from g_categ_busi
+    where CATY_BUSI_ID = #{catyBusiId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select CATY_BUSI_ID, BUSINESS_ID, CATEGORY_ID, PARENT_CATEG_ID
+    from g_categ_busi
+  </select>
+</mapper>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.goktech.olala.server.dao.goods.GoodsBusinessMapper">
+  <resultMap id="BaseResultMap" type="com.goktech.olala.server.pojo.goods.GoodsBusiness">
+    <id column="BUSINESS_ID" jdbcType="VARCHAR" property="businessId" />
+    <result column="BUSINESS_NAME" jdbcType="VARCHAR" property="businessName" />
+    <result column="BUSINESS_CODE" jdbcType="VARCHAR" property="businessCode" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="SEND_RANGE" jdbcType="VARCHAR" property="sendRange" />
+    <result column="FANS_COUNT" jdbcType="INTEGER" property="fansCount" />
+    <result column="SCORE" jdbcType="INTEGER" property="score" />
+    <result column="BUSINESS_LEVEL" jdbcType="BIT" property="businessLevel" />
+    <result column="BUSINESS_TYPE" jdbcType="VARCHAR" property="businessType" />
+    <result column="TERMINAL_CODE" jdbcType="VARCHAR" property="terminalCode" />
+    <result column="STATUS" jdbcType="BIT" property="status" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from g_business
+    where BUSINESS_ID = #{businessId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.goktech.olala.server.pojo.goods.GoodsBusiness">
+    insert into g_business (BUSINESS_ID, BUSINESS_NAME, BUSINESS_CODE, 
+      ADDRESS, SEND_RANGE, FANS_COUNT, 
+      SCORE, BUSINESS_LEVEL, BUSINESS_TYPE, 
+      TERMINAL_CODE, STATUS, CREATE_TIME, 
+      CREATE_BY, UPDATE_TIME, UPDATE_BY
+      )
+    values (#{businessId,jdbcType=VARCHAR}, #{businessName,jdbcType=VARCHAR}, #{businessCode,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{sendRange,jdbcType=VARCHAR}, #{fansCount,jdbcType=INTEGER}, 
+      #{score,jdbcType=INTEGER}, #{businessLevel,jdbcType=BIT}, #{businessType,jdbcType=VARCHAR}, 
+      #{terminalCode,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.goktech.olala.server.pojo.goods.GoodsBusiness">
+    update g_business
+    set BUSINESS_NAME = #{businessName,jdbcType=VARCHAR},
+      BUSINESS_CODE = #{businessCode,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      SEND_RANGE = #{sendRange,jdbcType=VARCHAR},
+      FANS_COUNT = #{fansCount,jdbcType=INTEGER},
+      SCORE = #{score,jdbcType=INTEGER},
+      BUSINESS_LEVEL = #{businessLevel,jdbcType=BIT},
+      BUSINESS_TYPE = #{businessType,jdbcType=VARCHAR},
+      TERMINAL_CODE = #{terminalCode,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=BIT},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR}
+    where BUSINESS_ID = #{businessId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select BUSINESS_ID, BUSINESS_NAME, BUSINESS_CODE, ADDRESS, SEND_RANGE, FANS_COUNT, 
+    SCORE, BUSINESS_LEVEL, BUSINESS_TYPE, TERMINAL_CODE, STATUS, CREATE_TIME, CREATE_BY, 
+    UPDATE_TIME, UPDATE_BY
+    from g_business
+    where BUSINESS_ID = #{businessId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select BUSINESS_ID, BUSINESS_NAME, BUSINESS_CODE, ADDRESS, SEND_RANGE, FANS_COUNT, 
+    SCORE, BUSINESS_LEVEL, BUSINESS_TYPE, TERMINAL_CODE, STATUS, CREATE_TIME, CREATE_BY, 
+    UPDATE_TIME, UPDATE_BY
+    from g_business
+  </select>
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.goktech.olala.server.dao.goods.GoodsReportMapper">
+  <resultMap id="BaseResultMap" type="com.goktech.olala.server.pojo.goods.GoodsReport">
+    <id column="GOODS_ID" jdbcType="VARCHAR" property="goodsId" />
+    <result column="MONTH_SALES" jdbcType="INTEGER" property="monthSales" />
+    <result column="COUNT_SALES" jdbcType="INTEGER" property="countSales" />
+    <result column="COUNT_COMMS" jdbcType="INTEGER" property="countComms" />
+    <result column="COMMEND_SCORE" jdbcType="INTEGER" property="commendScore" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from g_goods_report
+    where GOODS_ID = #{goodsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.goktech.olala.server.pojo.goods.GoodsReport">
+    insert into g_goods_report (GOODS_ID, MONTH_SALES, COUNT_SALES, 
+      COUNT_COMMS, COMMEND_SCORE)
+    values (#{goodsId,jdbcType=VARCHAR}, #{monthSales,jdbcType=INTEGER}, #{countSales,jdbcType=INTEGER}, 
+      #{countComms,jdbcType=INTEGER}, #{commendScore,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.goktech.olala.server.pojo.goods.GoodsReport">
+    update g_goods_report
+    set MONTH_SALES = #{monthSales,jdbcType=INTEGER},
+      COUNT_SALES = #{countSales,jdbcType=INTEGER},
+      COUNT_COMMS = #{countComms,jdbcType=INTEGER},
+      COMMEND_SCORE = #{commendScore,jdbcType=INTEGER}
+    where GOODS_ID = #{goodsId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select GOODS_ID, MONTH_SALES, COUNT_SALES, COUNT_COMMS, COMMEND_SCORE
+    from g_goods_report
+    where GOODS_ID = #{goodsId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select GOODS_ID, MONTH_SALES, COUNT_SALES, COUNT_COMMS, COMMEND_SCORE
+    from g_goods_report
+  </select>
+</mapper>

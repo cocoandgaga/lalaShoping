@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.goktech.olala.server.dao.order.OrderShopCartMapper">
+  <resultMap id="BaseResultMap" type="com.goktech.olala.server.pojo.order.OrderShopCart">
+    <id column="SHOP_CART_ID" jdbcType="BIGINT" property="shopCartId" />
+    <result column="CUSTOMER_ID" jdbcType="VARCHAR" property="customerId" />
+    <result column="SESSION_ID" jdbcType="CHAR" property="sessionId" />
+    <result column="GOODS_ID" jdbcType="VARCHAR" property="goodsId" />
+    <result column="GOODS_SN" jdbcType="VARCHAR" property="goodsSn" />
+    <result column="GOODS_NAME" jdbcType="VARCHAR" property="goodsName" />
+    <result column="CART_TYPE" jdbcType="BIT" property="cartType" />
+    <result column="GOODS_AMOUNT" jdbcType="INTEGER" property="goodsAmount" />
+    <result column="MARKET_PRICE" jdbcType="INTEGER" property="marketPrice" />
+    <result column="SHOP_PRICE" jdbcType="INTEGER" property="shopPrice" />
+    <result column="REAL_BUY_PRICE" jdbcType="INTEGER" property="realBuyPrice" />
+    <result column="IS_OPEN_SALE" jdbcType="BIT" property="isOpenSale" />
+    <result column="PARENT_GOODS_ID" jdbcType="VARCHAR" property="parentGoodsId" />
+    <result column="IS_GIFT" jdbcType="SMALLINT" property="isGift" />
+    <result column="CAN_HANDLE" jdbcType="BIT" property="canHandle" />
+    <result column="ADD_TIME" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="MODIFIED_TIME" jdbcType="TIMESTAMP" property="modifiedTime" />
+    <result column="GOODS_ATTR" jdbcType="LONGVARCHAR" property="goodsAttr" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from o_shop_cart
+    where SHOP_CART_ID = #{shopCartId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.goktech.olala.server.pojo.order.OrderShopCart">
+    insert into o_shop_cart (SHOP_CART_ID, CUSTOMER_ID, SESSION_ID, 
+      GOODS_ID, GOODS_SN, GOODS_NAME, 
+      CART_TYPE, GOODS_AMOUNT, MARKET_PRICE, 
+      SHOP_PRICE, REAL_BUY_PRICE, IS_OPEN_SALE, 
+      PARENT_GOODS_ID, IS_GIFT, CAN_HANDLE, 
+      ADD_TIME, MODIFIED_TIME, GOODS_ATTR
+      )
+    values (#{shopCartId,jdbcType=BIGINT}, #{customerId,jdbcType=VARCHAR}, #{sessionId,jdbcType=CHAR}, 
+      #{goodsId,jdbcType=VARCHAR}, #{goodsSn,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, 
+      #{cartType,jdbcType=BIT}, #{goodsAmount,jdbcType=INTEGER}, #{marketPrice,jdbcType=INTEGER}, 
+      #{shopPrice,jdbcType=INTEGER}, #{realBuyPrice,jdbcType=INTEGER}, #{isOpenSale,jdbcType=BIT}, 
+      #{parentGoodsId,jdbcType=VARCHAR}, #{isGift,jdbcType=SMALLINT}, #{canHandle,jdbcType=BIT}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}, #{goodsAttr,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.goktech.olala.server.pojo.order.OrderShopCart">
+    update o_shop_cart
+    set CUSTOMER_ID = #{customerId,jdbcType=VARCHAR},
+      SESSION_ID = #{sessionId,jdbcType=CHAR},
+      GOODS_ID = #{goodsId,jdbcType=VARCHAR},
+      GOODS_SN = #{goodsSn,jdbcType=VARCHAR},
+      GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      CART_TYPE = #{cartType,jdbcType=BIT},
+      GOODS_AMOUNT = #{goodsAmount,jdbcType=INTEGER},
+      MARKET_PRICE = #{marketPrice,jdbcType=INTEGER},
+      SHOP_PRICE = #{shopPrice,jdbcType=INTEGER},
+      REAL_BUY_PRICE = #{realBuyPrice,jdbcType=INTEGER},
+      IS_OPEN_SALE = #{isOpenSale,jdbcType=BIT},
+      PARENT_GOODS_ID = #{parentGoodsId,jdbcType=VARCHAR},
+      IS_GIFT = #{isGift,jdbcType=SMALLINT},
+      CAN_HANDLE = #{canHandle,jdbcType=BIT},
+      ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      MODIFIED_TIME = #{modifiedTime,jdbcType=TIMESTAMP},
+      GOODS_ATTR = #{goodsAttr,jdbcType=LONGVARCHAR}
+    where SHOP_CART_ID = #{shopCartId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select SHOP_CART_ID, CUSTOMER_ID, SESSION_ID, GOODS_ID, GOODS_SN, GOODS_NAME, CART_TYPE, 
+    GOODS_AMOUNT, MARKET_PRICE, SHOP_PRICE, REAL_BUY_PRICE, IS_OPEN_SALE, PARENT_GOODS_ID, 
+    IS_GIFT, CAN_HANDLE, ADD_TIME, MODIFIED_TIME, GOODS_ATTR
+    from o_shop_cart
+    where SHOP_CART_ID = #{shopCartId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select SHOP_CART_ID, CUSTOMER_ID, SESSION_ID, GOODS_ID, GOODS_SN, GOODS_NAME, CART_TYPE, 
+    GOODS_AMOUNT, MARKET_PRICE, SHOP_PRICE, REAL_BUY_PRICE, IS_OPEN_SALE, PARENT_GOODS_ID, 
+    IS_GIFT, CAN_HANDLE, ADD_TIME, MODIFIED_TIME, GOODS_ATTR
+    from o_shop_cart
+  </select>
+</mapper>

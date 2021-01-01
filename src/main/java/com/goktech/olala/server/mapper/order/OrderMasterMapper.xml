@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.goktech.olala.server.dao.order.OrderMasterMapper">
+  <resultMap id="BaseResultMap" type="com.goktech.olala.server.pojo.order.OrderMaster">
+    <id column="ORDER_ID" jdbcType="BIGINT" property="orderId" />
+    <result column="ORDER_SN" jdbcType="VARCHAR" property="orderSn" />
+    <result column="TRANSATION_NO" jdbcType="VARCHAR" property="transationNo" />
+    <result column="CUSTOMER_ID" jdbcType="VARCHAR" property="customerId" />
+    <result column="PAY_TYPE" jdbcType="BIT" property="payType" />
+    <result column="PAY_TIME" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="ORDER_MONEY" jdbcType="INTEGER" property="orderMoney" />
+    <result column="DISTRICT_MONEY" jdbcType="INTEGER" property="districtMoney" />
+    <result column="PAY_MONEY" jdbcType="INTEGER" property="payMoney" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="RECEIVE_TIME" jdbcType="TIMESTAMP" property="receiveTime" />
+    <result column="ORDER_STATUS" jdbcType="TINYINT" property="orderStatus" />
+    <result column="ORDER_POINT" jdbcType="INTEGER" property="orderPoint" />
+    <result column="INVOICE_TITLE" jdbcType="VARCHAR" property="invoiceTitle" />
+    <result column="INVOICE_NO" jdbcType="VARCHAR" property="invoiceNo" />
+    <result column="MODIFIED_TIME" jdbcType="TIMESTAMP" property="modifiedTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from o_order_master
+    where ORDER_ID = #{orderId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.goktech.olala.server.pojo.order.OrderMaster">
+    insert into o_order_master (ORDER_ID, ORDER_SN, TRANSATION_NO, 
+      CUSTOMER_ID, PAY_TYPE, PAY_TIME, 
+      ORDER_MONEY, DISTRICT_MONEY, PAY_MONEY, 
+      CREATE_TIME, RECEIVE_TIME, ORDER_STATUS, 
+      ORDER_POINT, INVOICE_TITLE, INVOICE_NO, 
+      MODIFIED_TIME)
+    values (#{orderId,jdbcType=BIGINT}, #{orderSn,jdbcType=VARCHAR}, #{transationNo,jdbcType=VARCHAR}, 
+      #{customerId,jdbcType=VARCHAR}, #{payType,jdbcType=BIT}, #{payTime,jdbcType=TIMESTAMP}, 
+      #{orderMoney,jdbcType=INTEGER}, #{districtMoney,jdbcType=INTEGER}, #{payMoney,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{receiveTime,jdbcType=TIMESTAMP}, #{orderStatus,jdbcType=TINYINT}, 
+      #{orderPoint,jdbcType=INTEGER}, #{invoiceTitle,jdbcType=VARCHAR}, #{invoiceNo,jdbcType=VARCHAR}, 
+      #{modifiedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.goktech.olala.server.pojo.order.OrderMaster">
+    update o_order_master
+    set ORDER_SN = #{orderSn,jdbcType=VARCHAR},
+      TRANSATION_NO = #{transationNo,jdbcType=VARCHAR},
+      CUSTOMER_ID = #{customerId,jdbcType=VARCHAR},
+      PAY_TYPE = #{payType,jdbcType=BIT},
+      PAY_TIME = #{payTime,jdbcType=TIMESTAMP},
+      ORDER_MONEY = #{orderMoney,jdbcType=INTEGER},
+      DISTRICT_MONEY = #{districtMoney,jdbcType=INTEGER},
+      PAY_MONEY = #{payMoney,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      RECEIVE_TIME = #{receiveTime,jdbcType=TIMESTAMP},
+      ORDER_STATUS = #{orderStatus,jdbcType=TINYINT},
+      ORDER_POINT = #{orderPoint,jdbcType=INTEGER},
+      INVOICE_TITLE = #{invoiceTitle,jdbcType=VARCHAR},
+      INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR},
+      MODIFIED_TIME = #{modifiedTime,jdbcType=TIMESTAMP}
+    where ORDER_ID = #{orderId,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select ORDER_ID, ORDER_SN, TRANSATION_NO, CUSTOMER_ID, PAY_TYPE, PAY_TIME, ORDER_MONEY, 
+    DISTRICT_MONEY, PAY_MONEY, CREATE_TIME, RECEIVE_TIME, ORDER_STATUS, ORDER_POINT, 
+    INVOICE_TITLE, INVOICE_NO, MODIFIED_TIME
+    from o_order_master
+    where ORDER_ID = #{orderId,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ORDER_ID, ORDER_SN, TRANSATION_NO, CUSTOMER_ID, PAY_TYPE, PAY_TIME, ORDER_MONEY, 
+    DISTRICT_MONEY, PAY_MONEY, CREATE_TIME, RECEIVE_TIME, ORDER_STATUS, ORDER_POINT, 
+    INVOICE_TITLE, INVOICE_NO, MODIFIED_TIME
+    from o_order_master
+  </select>
+</mapper>

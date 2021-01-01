@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.goktech.olala.server.dao.goods.GoodsBrandMapper">
+  <resultMap id="BaseResultMap" type="com.goktech.olala.server.pojo.goods.GoodsBrand">
+    <id column="BRAND_ID" jdbcType="SMALLINT" property="brandId" />
+    <result column="BRAND_NAME" jdbcType="VARCHAR" property="brandName" />
+    <result column="CATEGORY_ID" jdbcType="INTEGER" property="categoryId" />
+    <result column="BRAND_LOGO" jdbcType="VARCHAR" property="brandLogo" />
+    <result column="SITE_URL" jdbcType="VARCHAR" property="siteUrl" />
+    <result column="SORT_ORL" jdbcType="TINYINT" property="sortOrl" />
+    <result column="IS_SHOW" jdbcType="TINYINT" property="isShow" />
+    <result column="BRAND_DESC" jdbcType="LONGVARCHAR" property="brandDesc" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from g_goods_brand
+    where BRAND_ID = #{brandId,jdbcType=SMALLINT}
+  </delete>
+  <insert id="insert" parameterType="com.goktech.olala.server.pojo.goods.GoodsBrand">
+    insert into g_goods_brand (BRAND_ID, BRAND_NAME, CATEGORY_ID, 
+      BRAND_LOGO, SITE_URL, SORT_ORL, 
+      IS_SHOW, BRAND_DESC)
+    values (#{brandId,jdbcType=SMALLINT}, #{brandName,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, 
+      #{brandLogo,jdbcType=VARCHAR}, #{siteUrl,jdbcType=VARCHAR}, #{sortOrl,jdbcType=TINYINT}, 
+      #{isShow,jdbcType=TINYINT}, #{brandDesc,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.goktech.olala.server.pojo.goods.GoodsBrand">
+    update g_goods_brand
+    set BRAND_NAME = #{brandName,jdbcType=VARCHAR},
+      CATEGORY_ID = #{categoryId,jdbcType=INTEGER},
+      BRAND_LOGO = #{brandLogo,jdbcType=VARCHAR},
+      SITE_URL = #{siteUrl,jdbcType=VARCHAR},
+      SORT_ORL = #{sortOrl,jdbcType=TINYINT},
+      IS_SHOW = #{isShow,jdbcType=TINYINT},
+      BRAND_DESC = #{brandDesc,jdbcType=LONGVARCHAR}
+    where BRAND_ID = #{brandId,jdbcType=SMALLINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select BRAND_ID, BRAND_NAME, CATEGORY_ID, BRAND_LOGO, SITE_URL, SORT_ORL, IS_SHOW, 
+    BRAND_DESC
+    from g_goods_brand
+    where BRAND_ID = #{brandId,jdbcType=SMALLINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select BRAND_ID, BRAND_NAME, CATEGORY_ID, BRAND_LOGO, SITE_URL, SORT_ORL, IS_SHOW, 
+    BRAND_DESC
+    from g_goods_brand
+  </select>
+</mapper>

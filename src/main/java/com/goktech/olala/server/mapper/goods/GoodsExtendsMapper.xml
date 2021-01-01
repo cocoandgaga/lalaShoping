@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.goktech.olala.server.dao.goods.GoodsExtendsMapper">
+  <resultMap id="BaseResultMap" type="com.goktech.olala.server.pojo.goods.GoodsExtends">
+    <result column="GOODS_ID" jdbcType="VARCHAR" property="goodsId" />
+    <result column="EXTEND1" jdbcType="VARCHAR" property="extend1" />
+    <result column="EXTEND2" jdbcType="VARCHAR" property="extend2" />
+    <result column="EXTEND3" jdbcType="VARCHAR" property="extend3" />
+    <result column="EXTEND4" jdbcType="VARCHAR" property="extend4" />
+    <result column="EXTEND5" jdbcType="VARCHAR" property="extend5" />
+    <result column="EXTEND6" jdbcType="VARCHAR" property="extend6" />
+  </resultMap>
+  <insert id="insert" parameterType="com.goktech.olala.server.pojo.goods.GoodsExtends">
+    insert into g_goods_extends (GOODS_ID, EXTEND1, EXTEND2, 
+      EXTEND3, EXTEND4, EXTEND5, 
+      EXTEND6)
+    values (#{goodsId,jdbcType=VARCHAR}, #{extend1,jdbcType=VARCHAR}, #{extend2,jdbcType=VARCHAR}, 
+      #{extend3,jdbcType=VARCHAR}, #{extend4,jdbcType=VARCHAR}, #{extend5,jdbcType=VARCHAR}, 
+      #{extend6,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select GOODS_ID, EXTEND1, EXTEND2, EXTEND3, EXTEND4, EXTEND5, EXTEND6
+    from g_goods_extends
+  </select>
+</mapper>

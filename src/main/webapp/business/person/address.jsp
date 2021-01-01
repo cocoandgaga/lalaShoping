@@ -59,7 +59,7 @@
                                 <div class="new-addr-btn">
                                     <a href="#"><i class="am-icon-edit"></i>编辑</a>
                                     <span class="new-addr-bar">|</span>
-                                    <a href="javascript:void(0);" onclick="delClick(this);"><i class="am-icon-trash"></i>删除</a>
+                                    <a href="${pageContext.request.contextPath}/deleteConsignee/${addr.customerAddrId}"><i class="am-icon-trash"></i>删除</a>
                                 </div>
                             </li>
                     </c:forEach>

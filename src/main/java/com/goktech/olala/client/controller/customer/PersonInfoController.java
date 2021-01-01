@@ -72,18 +72,15 @@ public class PersonInfoController {
         }
     }
 
-    @PostMapping("/deleteConsignee")
-    @ResponseBody
-    public Object deleteConsignee(@RequestParam(value = "customerAddrId") Integer customerAddrId, HttpServletRequest request) {
+    @GetMapping("/deleteConsignee/{customerAddrId}")
+    public String deleteConsignee(@PathVariable Integer customerAddrId, HttpServletRequest request) {
         //        CtmLogin login_user = (CtmLogin) request.getSession().getAttribute("login_user");
         CtmLogin login_user = new CtmLogin();
         login_user.setCustomerId("1");
         if (login_user != null) {
             personInfoService.deleteAddressInfo(customerAddrId);
-            return ResultDTO.okOf();
-        } else {
-            return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
         }
+        return "person/address";
     }
 
     @GetMapping("/updateConsignee/{customerAddrId}")

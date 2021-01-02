@@ -13,4 +13,6 @@ public interface GoodsPictureMapper {
     List<GoodsPicture> selectAll();
 
     int updateByPrimaryKey(GoodsPicture record);
+
+    GoodsPicture selectByGoodsId(String goodsId);
 }

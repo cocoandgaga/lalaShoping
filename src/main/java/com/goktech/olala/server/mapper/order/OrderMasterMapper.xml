@@ -19,6 +19,11 @@
     <result column="INVOICE_NO" jdbcType="VARCHAR" property="invoiceNo" />
     <result column="MODIFIED_TIME" jdbcType="TIMESTAMP" property="modifiedTime" />
   </resultMap>
+  <sql id="all_columns">
+    ORDER_ID, ORDER_SN, TRANSATION_NO, CUSTOMER_ID, PAY_TYPE, PAY_TIME, ORDER_MONEY,
+    DISTRICT_MONEY, PAY_MONEY, CREATE_TIME, RECEIVE_TIME, ORDER_STATUS, ORDER_POINT,
+    INVOICE_TITLE, INVOICE_NO, MODIFIED_TIME
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from o_order_master
     where ORDER_ID = #{orderId,jdbcType=BIGINT}
@@ -57,16 +62,24 @@
     where ORDER_ID = #{orderId,jdbcType=BIGINT}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select ORDER_ID, ORDER_SN, TRANSATION_NO, CUSTOMER_ID, PAY_TYPE, PAY_TIME, ORDER_MONEY, 
-    DISTRICT_MONEY, PAY_MONEY, CREATE_TIME, RECEIVE_TIME, ORDER_STATUS, ORDER_POINT, 
-    INVOICE_TITLE, INVOICE_NO, MODIFIED_TIME
+    select
+    <include refid="all_columns"/>
     from o_order_master
     where ORDER_ID = #{orderId,jdbcType=BIGINT}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select ORDER_ID, ORDER_SN, TRANSATION_NO, CUSTOMER_ID, PAY_TYPE, PAY_TIME, ORDER_MONEY, 
-    DISTRICT_MONEY, PAY_MONEY, CREATE_TIME, RECEIVE_TIME, ORDER_STATUS, ORDER_POINT, 
-    INVOICE_TITLE, INVOICE_NO, MODIFIED_TIME
+    select
+    <include refid="all_columns"/>
     from o_order_master
   </select>
+
+  <select id="selectByCtmId" parameterType="Integer" resultMap="BaseResultMap">
+    select
+    <include refid="all_columns" />
+    from o_order_master
+    where customer_id=#{customerId,jdbcType=VARCHAR}
+  </select>
+
+
+
 </mapper>

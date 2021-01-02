@@ -68,9 +68,13 @@ public class PersonInfoService {
         ctmConsigneeMapper.updateDefault(ctmConsignee);
     }
 
-    public int creatAddressInfo(CtmConsignee ctmConsignee) {
-        int key = ctmConsigneeMapper.insert(ctmConsignee);
-        return key;
+    public void createOrUpdateAddressInfo(CtmConsignee ctmConsignee,Integer addressId) {
+        if (addressId!=null) {
+            ctmConsignee.setCustomerAddrId(addressId);
+            ctmConsigneeMapper.updateByPrimaryKey(ctmConsignee);
+        }else {
+            ctmConsigneeMapper.insert(ctmConsignee);
+        }
     }
 }
 

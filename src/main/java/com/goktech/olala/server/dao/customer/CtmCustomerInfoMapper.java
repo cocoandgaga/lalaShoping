@@ -1,7 +1,7 @@
 package com.goktech.olala.server.dao.customer;
 
-import com.goktech.olala.server.pojo.customer.CtmConsignee;
 import com.goktech.olala.server.pojo.customer.CtmCustomerInfo;
+
 import java.util.List;
 
 public interface CtmCustomerInfoMapper {

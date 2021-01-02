@@ -57,7 +57,7 @@
                                         <span class="street">${addr.address}</span></p>
                                 </div>
                                 <div class="new-addr-btn">
-                                    <a href="#"><i class="am-icon-edit"></i>编辑</a>
+                                    <a href="${pageContext.request.contextPath}/updateConsignee/${addr.customerAddrId}"><i class="am-icon-edit"></i>编辑</a>
                                     <span class="new-addr-bar">|</span>
                                     <a href="${pageContext.request.contextPath}/deleteConsignee/${addr.customerAddrId}"><i class="am-icon-trash"></i>删除</a>
                                 </div>
@@ -79,7 +79,6 @@
 
                         <div class="am-u-md-12 am-u-lg-8" style="margin-top: 20px;">
                             <form class="am-form am-form-horizontal">
-                                <input type="hidden" value="${ctmCustomerInfo.customerId}" id="ctmId">
                                 <div class="am-form-group">
                                     <label for="user-name" class="am-form-label">收货人</label>
                                     <div class="am-form-content">
@@ -122,7 +121,7 @@
                                 <div class="am-form-group">
                                     <div class="am-u-sm-9 am-u-sm-push-3">
                                         <a class="am-btn am-btn-danger save">保存</a>
-                                        <a href="javascript: void(0)" class="am-close am-btn am-btn-danger" data-am-modal-close>取消</a>
+                                        <a  class="am-close am-btn am-btn-danger mycancel" data-am-modal-close>取消</a>
                                     </div>
                                 </div>
                             </form>
@@ -175,7 +174,6 @@
 
             <script type="text/javascript">
                 $(".save").click(function(){
-                    let customerId = $('#ctmId').val();
                     let recvName = $('#user-name').val();
                     let mobile = $('#user-phone').val();
                     let province = $('#province').val();
@@ -187,7 +185,6 @@
                         type: 'POST',
                         url: '${pageContext.request.contextPath}/updateConsignee',
                         data: {
-                            "customerId": customerId,
                             "recvName": recvName,
                             "mobile": mobile,
                             "province": province,
@@ -207,7 +204,14 @@
 
                 })
             </script>
+            <script type="text/javascript">
+                $('.mycancel').click(function () {
+                    $('#user-name').val("");
+                    $('#user-phone').val("");
+                    $('#user-intro').val("");
+                })
 
+            </script>
             <div class="clear"></div>
 
         </div>

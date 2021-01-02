@@ -3,7 +3,7 @@
 <mapper namespace="com.goktech.olala.server.dao.order.OrderDetailMapper">
   <resultMap id="BaseResultMap" type="com.goktech.olala.server.pojo.order.OrderDetail">
     <id column="ORDER_DETAIL_ID" jdbcType="INTEGER" property="orderDetailId" />
-    <result column="ORDER_ID" jdbcType="INTEGER" property="orderId" />
+    <result column="ORDER_ID" jdbcType="BIGINT" property="orderId" />
     <result column="GOODS_ID" jdbcType="VARCHAR" property="goodsId" />
     <result column="GOODS_NAME" jdbcType="VARCHAR" property="goodsName" />
     <result column="GOODS_CNT" jdbcType="INTEGER" property="goodsCnt" />
@@ -14,6 +14,11 @@
     <result column="WHID" jdbcType="INTEGER" property="whid" />
     <result column="MODIFIED_TIME" jdbcType="TIMESTAMP" property="modifiedTime" />
   </resultMap>
+
+  <sql id="all_columns">
+   ORDER_DETAIL_ID, ORDER_ID, GOODS_ID, GOODS_NAME, GOODS_CNT, GOODS_PRICE, AVERAGE_COST,
+    WEIGHT, DISTRICT_MONEY, WHID, MODIFIED_TIME
+  </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from o_order_detail
     where ORDER_DETAIL_ID = #{orderDetailId,jdbcType=INTEGER}
@@ -23,14 +28,14 @@
       GOODS_NAME, GOODS_CNT, GOODS_PRICE, 
       AVERAGE_COST, WEIGHT, DISTRICT_MONEY, 
       WHID, MODIFIED_TIME)
-    values (#{orderDetailId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{goodsId,jdbcType=VARCHAR}, 
+    values (#{orderDetailId,jdbcType=INTEGER}, #{orderId,jdbcType=BIGINT}, #{goodsId,jdbcType=VARCHAR},
       #{goodsName,jdbcType=VARCHAR}, #{goodsCnt,jdbcType=INTEGER}, #{goodsPrice,jdbcType=INTEGER}, 
       #{averageCost,jdbcType=INTEGER}, #{weight,jdbcType=REAL}, #{districtMoney,jdbcType=INTEGER}, 
       #{whid,jdbcType=INTEGER}, #{modifiedTime,jdbcType=TIMESTAMP})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.goktech.olala.server.pojo.order.OrderDetail">
     update o_order_detail
-    set ORDER_ID = #{orderId,jdbcType=INTEGER},
+    set ORDER_ID = #{orderId,jdbcType=BIGINT},
       GOODS_ID = #{goodsId,jdbcType=VARCHAR},
       GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
       GOODS_CNT = #{goodsCnt,jdbcType=INTEGER},
@@ -43,14 +48,22 @@
     where ORDER_DETAIL_ID = #{orderDetailId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select ORDER_DETAIL_ID, ORDER_ID, GOODS_ID, GOODS_NAME, GOODS_CNT, GOODS_PRICE, AVERAGE_COST, 
-    WEIGHT, DISTRICT_MONEY, WHID, MODIFIED_TIME
+    select
+    <include refid="all_columns"></include>
     from o_order_detail
     where ORDER_DETAIL_ID = #{orderDetailId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select ORDER_DETAIL_ID, ORDER_ID, GOODS_ID, GOODS_NAME, GOODS_CNT, GOODS_PRICE, AVERAGE_COST, 
-    WEIGHT, DISTRICT_MONEY, WHID, MODIFIED_TIME
+    select
+    <include refid="all_columns"></include>
     from o_order_detail
   </select>
+
+  <select id="selectByOrderId" resultMap="BaseResultMap" parameterType="Long">
+    select
+    <include refid="all_columns"/>
+    from o_order_detail
+    where ORDER_ID=#{ORDER_ID,jdbc=BIGINT}
+  </select>
+
 </mapper>

@@ -7,4 +7,6 @@ public interface GoodsParamMapper {
     int insert(GoodsParam record);
 
     List<GoodsParam> selectAll();
+
+    GoodsParam selectByPrimaryKey(String goodsId);
 }

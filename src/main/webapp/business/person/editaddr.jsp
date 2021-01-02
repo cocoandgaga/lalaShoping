@@ -45,25 +45,30 @@
 
                         <div class="am-u-md-12 am-u-lg-8" style="margin-top: 20px;">
                             <form class="am-form am-form-horizontal">
-
+                                <input type="hidden" value="${ctmConsignee.customerAddrId}" id="addrId">
                                 <div class="am-form-group">
                                     <label for="user-name" class="am-form-label">收货人</label>
                                     <div class="am-form-content">
                                         <input type="text" id="user-name" value="${ctmConsignee.recvName}">
                                     </div>
                                 </div>
-
+                                <div class="am-form-group">
+                                    <label for="user-phone" class="am-form-label">手机号码</label>
+                                    <div class="am-form-content">
+                                        <input id="user-phone" placeholder="手机号必填" type="email" value="${ctmConsignee.mobile}">
+                                    </div>
+                                </div>
                                 <div class="am-form-group">
                                     <label class="am-form-label">所在地</label>
                                     <div class="am-form-content address">
                                         <select data-am-selected id="modify-province">
-                                            <option>--请选择--</option>
+                                            <option selected="selected">${ctmConsignee.province}</option>
                                         </select>
                                         <select data-am-selected id="modify-city">
-                                            <option value="a">--请选择--</option>
+                                            <option selected="selected">${ctmConsignee.city}</option>
                                         </select>
                                         <select data-am-selected id="modify-dist">
-                                            <option value="a">--请选择--</option>
+                                            <option selected="selected">${ctmConsignee.district}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -71,15 +76,15 @@
                                 <div class="am-form-group">
                                     <label for="user-intro" class="am-form-label">详细地址</label>
                                     <div class="am-form-content">
-                                        <textarea class="" rows="3" id="user-intro" value="${ctmConsignee.address}"></textarea>
+                                        <textarea class="" rows="3" id="user-intro">${ctmConsignee.address}</textarea>
                                         <small>100字以内写出你的详细地址...</small>
                                     </div>
                                 </div>
 
                                 <div class="am-form-group">
                                     <div class="am-u-sm-9 am-u-sm-push-3">
-                                        <a class="am-btn am-btn-danger">保存</a>
-                                        <a href="javascript: void(0)" class="am-close am-btn am-btn-danger" data-am-modal-close>取消</a>
+                                        <a class="am-btn am-btn-danger mysave">保存</a>
+                                        <a class="am-close am-btn am-btn-danger mycancel" data-am-modal-close>取消</a>
                                     </div>
                                 </div>
                             </form>
@@ -114,6 +119,50 @@
     <aside class="menu"></aside>
 </div>
 </body>
+
+<script type="text/javascript">
+    $(".mysave").click(function(){
+        let addrId = $('#addrId').val();
+        let recvName = $('#user-name').val();
+        let mobile = $('#user-phone').val();
+        let province = $('#modify-province').val();
+        let city = $('#modify-city').val();
+        let district = $('#modify-dist').val();
+        let address =  document.getElementById("user-intro").value;
+
+        $.ajax({
+            type: 'POST',
+            url: '${pageContext.request.contextPath}/updateConsignee',
+            data: {
+                "customerAddrId": addrId,
+                "recvName": recvName,
+                "mobile": mobile,
+                "province": province,
+                "city": city,
+                "district": district,
+                "address": address
+            },
+            success: function (data) {
+                if (data.code == "200"){
+                    alert("修改地址成功");
+                    window.location.reload();
+                }else {
+                    alert(data.message);
+                }
+            }
+        });
+
+    })
+</script>
+<script type="text/javascript">
+    $('.mycancel').click(function () {
+        $('#user-name').val("");
+        $('#user-phone').val("");
+        $('#user-intro').val("");
+    })
+
+</script>
+
 <script>
     $(function(){
         $("header").load("${pageContext.request.contextPath}/business/person/header.jsp");
@@ -135,7 +184,7 @@
                                 }
 
                             )
-                    })
+                    });
         })
     })
 </script>

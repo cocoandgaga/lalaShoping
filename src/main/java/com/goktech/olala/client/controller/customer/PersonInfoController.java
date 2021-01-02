@@ -4,7 +4,6 @@ package com.goktech.olala.client.controller.customer;
 import com.goktech.olala.core.exception.CustomizeErrorCode;
 import com.goktech.olala.core.exception.ResultDTO;
 import com.goktech.olala.core.service.impl.PersonInfoService;
-import com.goktech.olala.server.dto.CtmCustomerInfoDTO;
 import com.goktech.olala.server.pojo.customer.CtmConsignee;
 import com.goktech.olala.server.pojo.customer.CtmCustomerInfo;
 import com.goktech.olala.server.pojo.customer.CtmLogin;
@@ -14,10 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class PersonInfoController {
@@ -68,19 +65,20 @@ public class PersonInfoController {
             model.addAttribute("ctmCustomerInfo", ctmCustomerInfo);
             return "person/address";
         } else {
-            return "";
+            return "home/login";
         }
     }
 
     @GetMapping("/deleteConsignee/{customerAddrId}")
-    public String deleteConsignee(@PathVariable Integer customerAddrId, HttpServletRequest request) {
+    public String deleteConsignee(@PathVariable Integer customerAddrId, Model model,
+                                  HttpServletRequest request) {
         //        CtmLogin login_user = (CtmLogin) request.getSession().getAttribute("login_user");
         CtmLogin login_user = new CtmLogin();
         login_user.setCustomerId("1");
         if (login_user != null) {
             personInfoService.deleteAddressInfo(customerAddrId);
         }
-        return "person/address";
+        return "redirect:/queryCustomerConsignee";
     }
 
     @GetMapping("/updateConsignee/{customerAddrId}")
@@ -89,7 +87,6 @@ public class PersonInfoController {
         CtmConsignee ctmConsignee = personInfoService.listAddressesByAddressId(customerAddrId);
         model.addAttribute("ctmConsignee",ctmConsignee);
         return "/person/editaddr";
-
     }
 
 
@@ -97,7 +94,7 @@ public class PersonInfoController {
     @PostMapping("/updateConsignee")
     @ResponseBody
     public Object updateConsignee(HttpServletRequest request, Model model,
-                                  @RequestParam(value = "customerId",required = false)String customerId,
+                                  @RequestParam(value = "customerAddrId",required = false)Integer customerAddrId,
                                   @RequestParam(value = "recvName",required = false)String recvName,
                                   @RequestParam(value = "mobile",required = false)String mobile,
                                   @RequestParam(value = "province",required = false)String province,
@@ -116,11 +113,9 @@ public class PersonInfoController {
                     city == null || city.equals("")||
                     province == null || province.equals("")) {
                     return ResultDTO.errorOf(CustomizeErrorCode.INFO_NOT_COMPLETE);
-            }else if (customerId == null || customerId.equals("")){
-                return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
             }
             CtmConsignee ctmConsignee=new CtmConsignee();
-            ctmConsignee.setCustomerId(customerId);
+            ctmConsignee.setCustomerId(login_user.getCustomerId());
             ctmConsignee.setRecvName(recvName);
             ctmConsignee.setMobile(mobile);
             ctmConsignee.setProvince(province);
@@ -130,7 +125,7 @@ public class PersonInfoController {
             ctmConsignee.setIsDefault(false);
             ctmConsignee.setModifiedTime(new Date(System.currentTimeMillis()));
 
-            personInfoService.creatAddressInfo(ctmConsignee);
+            personInfoService.createOrUpdateAddressInfo(ctmConsignee,customerAddrId);
             return ResultDTO.okOf();
         } else {
             return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
@@ -142,7 +137,7 @@ public class PersonInfoController {
 
     @PostMapping("/updateConsigneeDefault")
     @ResponseBody
-    public Object updateConsignee(HttpServletRequest request,
+    public Object updateConsigneeDefault(HttpServletRequest request,
                                   @RequestParam("customerAddrId")Integer customerAddrId) {
 
         //        CtmLogin login_user = (CtmLogin) request.getSession().getAttribute("login_user");
@@ -226,34 +221,7 @@ public class PersonInfoController {
         personInfoService.updateCtmInfo(customerInfo);
         return ResultDTO.okOf();
     }
-}
-
-/*
-
-
-
-
-    @GetMapping("/publish/{id}")
-    public  String doEdit(@PathVariable(name = "id") Long id,
-                          Model model){
-        QuestionDTO questionDTO=questionService.getById(id);
-        model.addAttribute("title",questionDTO.getTitle());
-        model.addAttribute("description",questionDTO.getDescription());
-        model.addAttribute("tag",questionDTO.getTag());
-        model.addAttribute("id",questionDTO.getId());
-        model.addAttribute("tags", TagCache.get());
-        return  "publish";
-    }
-
-    @GetMapping("/publish")
-    public String doPublish(Model model){
-        model.addAttribute("tags", TagCache.get());
-        return "publish";
-    }
-
-*//*
-
 
 
 }
-*/
+

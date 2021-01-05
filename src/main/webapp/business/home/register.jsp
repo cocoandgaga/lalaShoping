@@ -1,11 +1,12 @@
 <%--
   Created by IntelliJ IDEA.
-  User: zxj
+  User: llb
   Date: 2020/12/31
-  Time: 14:29
+  Time: 14:39
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 
 <head lang="en">
@@ -43,19 +44,25 @@
 
                 <div class="am-tabs-bd">
                     <div class="am-tab-panel am-active">
-                        <form method="post">
+                        <form method="post" id="form1" action="${pageContext.request.contextPath}/cntApi/register.do">
 
                             <div class="user-email">
                                 <label for="email"><i class="am-icon-envelope-o"></i></label>
-                                <input type="email" name="" id="email" placeholder="请输入邮箱账号">
+                                <input type="email" name="email" id="email" placeholder="请输入邮箱账号">
                             </div>
                             <div class="user-pass">
                                 <label for="password"><i class="am-icon-lock"></i></label>
-                                <input type="password" name="" id="password" placeholder="设置密码">
+                                <c:if test="${error != null}"  var="judge">
+                                    <input type="password" name="password" id="password" placeholder="${error}">
+                                </c:if>
+                                <c:if test="${!judge}">
+                                    <input type="password" name="password" id="password" placeholder="设置密码">
+                                </c:if>
+
                             </div>
                             <div class="user-pass">
                                 <label for="passwordRepeat"><i class="am-icon-lock"></i></label>
-                                <input type="password" name="" id="passwordRepeat" placeholder="确认密码">
+                                <input type="password" name="passwordRepeat" id="passwordRepeat" placeholder="确认密码">
                             </div>
 
                         </form>
@@ -66,13 +73,13 @@
                             </label>
                         </div>
                         <div class="am-cf">
-                            <input type="submit" name="" value="注册" class="am-btn am-btn-primary am-btn-sm am-fl">
+                            <input type="submit" form="form1" value="注册" class="am-btn am-btn-primary am-btn-sm am-fl">
                         </div>
 
                     </div>
 
                     <div class="am-tab-panel">
-                        <form method="post">
+                        <form method="post" id="form2" action="${pageContext.request.contextPath}/cntApi/register.do">
                             <div class="user-phone">
                                 <label for="phone"><i class="am-icon-mobile-phone am-icon-md"></i></label>
                                 <input type="tel" name="" id="phone" placeholder="请输入手机号">
@@ -98,7 +105,7 @@
                             </label>
                         </div>
                         <div class="am-cf">
-                            <input type="submit" name="" value="注册" class="am-btn am-btn-primary am-btn-sm am-fl">
+                            <input type="submit" form="form2" value="注册" class="am-btn am-btn-primary am-btn-sm am-fl">
                         </div>
 
                         <hr>
@@ -108,6 +115,12 @@
                         $(function() {
                             $('#doc-my-tabs').tabs();
                         })
+                        $(".am-btn").click(function(event){
+                            if($("#reader-me").prop("checked") != true){
+                                alert("勾选协议后注册！");
+                                event.preventDefault();
+                            }
+                        });
                     </script>
 
                 </div>
@@ -119,21 +132,21 @@
     <div class="footer ">
         <div class="footer-hd ">
             <p>
-                <a href="# ">恒望科技</a>
+                <a href="#">恒望科技</a>
                 <b>|</b>
-                <a href="# ">商城首页</a>
+                <a href="#">商城首页</a>
                 <b>|</b>
-                <a href="# ">支付宝</a>
+                <a href="#">支付宝</a>
                 <b>|</b>
-                <a href="# ">物流</a>
+                <a href="#">物流</a>
             </p>
         </div>
         <div class="footer-bd ">
             <p>
-                <a href="# ">关于恒望</a>
-                <a href="# ">合作伙伴</a>
-                <a href="# ">联系我们</a>
-                <a href="# ">网站地图</a>
+                <a href="#">关于恒望</a>
+                <a href="#">合作伙伴</a>
+                <a href="#">联系我们</a>
+                <a href="#">网站地图</a>
                 <em>© 2015-2025 Hengwang.com 版权所有</em>
             </p>
         </div>

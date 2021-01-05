@@ -22,9 +22,29 @@
     select CUSTOMER_ID, LOGIN_NAME, PASSWORD, USER_STATUS, MODIFIED_TIME, EMAIL, mobile
     from c_login
   </select>
-
-  <update id="updateLoginName" parameterType="String">
-    update c_login set LOGIN_NAME=#{loginName,jdbcType=VARCHAR}
-     where CUSTOMER_ID=#{customerId,jdbcType=VARCHAR}
+  <select id="selectByEmail" parameterType="String" resultMap="BaseResultMap">
+    select CUSTOMER_ID, LOGIN_NAME, PASSWORD,
+           USER_STATUS, MODIFIED_TIME, EMAIL,
+           mobile
+    from c_login
+    where EMAIL = #{email,jdbcType=VARCHAR}
+  </select>
+  <update id="updateByCustomerId" parameterType="com.goktech.olala.server.pojo.customer.CtmLogin">
+    update c_login
+    set USER_STATUS = #{userStatus,jdbcType=BIT}
+    where CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
   </update>
+  <update id="updatePwd" parameterType="com.goktech.olala.server.pojo.customer.CtmLogin">
+    update c_login
+    set PASSWORD = #{password,jdbcType=VARCHAR}
+    where CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectPwdById" parameterType="String" resultMap="BaseResultMap">
+    select CUSTOMER_ID, LOGIN_NAME, PASSWORD,
+           USER_STATUS, MODIFIED_TIME, EMAIL,
+           mobile
+    from c_login
+    where CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+  </select>
+
 </mapper>

@@ -232,5 +232,10 @@ public class PersonInfoController {
         }
     }
 
+
+   /* public String editPassword(@RequestParam String pa){
+                re
+    }*/
+
 }
 

@@ -28,7 +28,23 @@ public class MemberController extends BasicController {
     @Autowired
     ICtmInfoService ctmInfoService;
 
-    */
+   */
+/**
+ * 会员登录注册
+ *
+ *//*
+    @RequestMapping("" )
+    public ModelAndView login(){
+        ModelAndView modelAndView = new ModelAndView();
+		//User user = userService.getUserByUserNameUser("CCC");
+		//modelAndView.addObject("msg",user);
+		//modelAndView.setViewName("success");
+		//return modelAndView;
+		Member
+
+    }
+
+*/
 /**
      * 会员信息查询
      *

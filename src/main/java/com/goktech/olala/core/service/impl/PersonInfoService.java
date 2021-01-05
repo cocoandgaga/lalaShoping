@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class PersonInfoService {
 
     @Autowired
@@ -41,7 +42,7 @@ public class PersonInfoService {
         }
     }
 
-    @Transactional
+
     //删除地址信息
     public void deleteAddressInfo(Integer customerAddrId) {
          ctmConsigneeMapper.deleteByPrimaryKey(customerAddrId);

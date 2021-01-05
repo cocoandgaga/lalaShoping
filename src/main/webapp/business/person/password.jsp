@@ -14,14 +14,14 @@
 
     <title>修改密码</title>
 
-    <link href="../AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
-    <link href="../AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/business/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/business/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
 
-    <link href="../css/personal.css" rel="stylesheet" type="text/css">
-    <link href="../css/stepstyle.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/business/css/personal.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/business/css/stepstyle.css" rel="stylesheet" type="text/css">
 
-    <script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
-    <script src="../AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/business/js/jquery-1.7.2.min.js"></script>
+    <script src="${pageContext.request.contextPath}/business/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
 
 </head>
 
@@ -89,12 +89,36 @@
     <aside class="menu"></aside>
 </div>
 </body>
+
+<script type="text/javascript">
+    let u_old = $('#user-old-password').val();
+    let u_new = $('#user-new-password').val();
+    let u_confirm= $('#user-confirm-password').val();
+    $.ajax({
+        type: 'POST',
+        url: '${pageContext.request.contextPath}/updatepassword',
+        data: {
+            "old_password": u_old,
+            "new_password": u_new,
+            "confirm_password": u_confirm
+        },
+        success: function (data) {
+            if (data.code == '200'){
+                alert("修改密码成功");
+            }else{
+                alert(data.message);
+            }
+        }
+    })
+
+</script>
+
 <script>
     $(function () {
-        $("header").load("../person/header.html");
-        $(".nav-table").load("../person/nav.html");
-        $("div.footer").load("../home/footer.html");
-        $("aside").load("../home/aside.html");
+        $("header").load("${pageContext.request.contextPath}/business/person/header.jsp");
+        $(".nav-table").load("${pageContext.request.contextPath}/business/person/nav.jsp");
+        $("div.footer").load("${pageContext.request.contextPath}/business/home/footer.jsp");
+        $("aside").load("${pageContext.request.contextPath}/business/home/aside.jsp");
     })
 </script>
 </html>

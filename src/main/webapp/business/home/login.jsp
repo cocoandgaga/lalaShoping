@@ -1,4 +1,12 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: llb
+  Date: 2020/12/31
+  Time: 14:38
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 
 <head lang="en">
@@ -12,6 +20,9 @@
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/business/AmazeUI-2.4.2/assets/css/amazeui.css" />
     <link href="${pageContext.request.contextPath}/business/css/dlstyle.css" rel="stylesheet" type="text/css">
+    <script src="${pageContext.request.contextPath}/business/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/business/AmazeUI-2.4.2/assets/js/amazeui.min.js"></script>
+    <script src="${pageContext.request.contextPath}/business/resource/js/jquery.cookie.js"></script>
 </head>
 
 <body>
@@ -30,7 +41,7 @@
             <div class="clear"></div>
 
             <div class="login-form">
-                <form id="infoForm">
+                <form id="infoForm" action="${pageContext.request.contextPath}/cntApi/login.do">
                     <div class="user-name">
                         <label for="userName"><i class="am-icon-user"></i></label>
                         <input type="text" name="userName" id="userName" placeholder="邮箱/手机/用户名">
@@ -40,19 +51,22 @@
                         <input type="password" name="pwd" id="password" placeholder="请输入密码">
                     </div>
                     <div class="message">
-                        <span id="errorMsg" style="background-color: #ec2636">账号或密码错误！！！</span>
+                        <c:if test="${pwdError == true }">
+                            <span id="errorMsg" style="background-color: #ec2636">账号或密码错误！！！</span>
+                        </c:if>
+
                     </div>
                 </form>
             </div>
 
             <div class="login-links">
-                <label for="remember-me"><input id="remember-me" type="checkbox">记住密码</label>
+                <label for="remember-me"><input id="remember-me" type="checkbox" name="remember-me">记住密码</label>
                 <a href="#" class="am-fr">忘记密码</a>
-                <a href="register.html" class="zcnext am-fr am-btn-default">注册</a>
+                <a href="${pageContext.request.contextPath}/business/home/register.jsp" class="zcnext am-fr am-btn-default">注册</a>
                 <br />
             </div>
             <div class="am-cf">
-                <input type="submit" id="loginBtn" value="登 录" class="am-btn am-btn-primary am-btn-sm">
+                <input type="submit" form="infoForm" id="loginBtn" value="登 录" class="am-btn am-btn-primary am-btn-sm">
             </div>
             <div class="partner">
                 <h3>合作账号</h3>
@@ -93,4 +107,58 @@
 </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/business/resource/js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="./js/login.js"></script>
+<script>
+    // $(function() {
+    //     // $.cookie('input的name值') 把 cookie 里的值赋给 input
+    //     if($.cookie('remember-me')) {
+    //          var un = $('#userName').val($.cookie('userName'));
+    //          var pd =  $('#password').val($.cookie('pwd'));
+    //          if(un != undefined){
+    //              alert(un);
+    //              alert(pd);
+    //          }
+    //          else {
+    //              alert("查无此号");
+    //          }
+    //
+    //     }
+    //     else {
+    //         alert("查无此号0");
+    //     }
+    //
+    //     $('#loginBtn').on('click', function(){
+    //         if($("#remember-me").prop("checked") == true) {
+    //             var userName = $("#userName").val();
+    //             var passWord = $("#password").val();
+    //             // 存储一个带7天期限的 cookie
+    //             $.cookie("remember-me", "true", {
+    //                 expires: 7 , // 存储期限 单位：天
+    //                 path: '/'
+    //             });
+    //             $.cookie("userName", userName, {
+    //                 expires: 7,
+    //                 path: '/'
+    //             });
+    //             $.cookie("pwd", passWord, {
+    //                 expires: 7,
+    //                 path: '/'
+    //             });
+    //         } else {
+    //             // 删除 cookie
+    //             $.cookie("remember-me", "", {
+    //                 expires: -1,
+    //                 path: '/'
+    //             });
+    //             $.cookie("username", "", {
+    //                 expires: -1,
+    //                 path: '/'
+    //             });
+    //             $.cookie("pwd", "", {
+    //                 expires: -1,
+    //                 path: '/'
+    //             });
+    //         }
+    //     })
+    // });
+</script>
 </html>

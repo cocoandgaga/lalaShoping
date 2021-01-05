@@ -9,4 +9,10 @@ public interface CtmLoginMapper {
     List<CtmLogin> selectAll();
 
     void updateLoginName(CtmLogin login);
+    int updateByCustomerId(CtmLogin ctmLogin);
+
+    List<CtmLogin> selectByEmail(String email);
+
+
+    CtmLogin selectPwdById(String customerId);
 }

@@ -4,9 +4,9 @@
   <artifactId>olalashop</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <url>http://maven.apache.org</url>
-
+<url>http://maven.apache.org</url>
   <properties>
+
     <jackson-version>2.9.6</jackson-version>
     <spring.version>5.1.0.RELEASE</spring.version>
     <mybatis.version>3.4.6</mybatis.version>
@@ -92,7 +92,7 @@
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
-      <version>1.1.41</version>
+      <version>1.2.68</version>
     </dependency>
 
     <!-- logback start -->
@@ -253,12 +253,12 @@
       <artifactId>jackson-databind</artifactId>
       <version>${jackson-version}</version>
     </dependency>
+
     <dependency>
       <groupId>com.aliyun.oss</groupId>
       <artifactId>aliyun-sdk-oss</artifactId>
       <version>3.10.2</version>
     </dependency>
-
   </dependencies>
 
   <build>
@@ -285,7 +285,9 @@
 
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
         <groupId>org.apache.maven.plugins</groupId>
+
         <configuration>
           <source>1.8</source>
           <target>1.8</target>

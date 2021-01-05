@@ -24,7 +24,7 @@
   </filter-mapping>
   <context-param>
     <param-name>log4jConfiguration</param-name>
-    <param-value>/WEB-INF/classes/log4j.properties</param-value>
+    <param-value>classpath:log4j.properties</param-value>
   </context-param>
 
   <!-- 60000表示 开一条watchdog线程每60秒扫描一下配置文件的变化;这样便于日志存放位置的改变 -->

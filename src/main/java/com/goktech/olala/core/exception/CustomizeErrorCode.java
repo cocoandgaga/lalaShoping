@@ -3,7 +3,7 @@ package com.goktech.olala.core.exception;
 public enum CustomizeErrorCode implements ICustomizeErrorCode{
     INFO_NOT_COMPLETE(2003,"收货信息填写不全"),
     REPEAT_LIKE(2008,"不可重复点赞"),
-    QUESTION_NOT_FOUNT(2001 ,"你要找的问题可能已删除或不存在..."),
+    GOODS_NOT_FOUNT(2001 ,"你要找的商品可能已删除或不存在..."),
     UPDATE_FAILED(2002,"更新失败，您要更新的问题可能已经删除"),
     PARENT_QUESTION_NOT_FOUND(2003,"当前问题或评论已被删除"),
     NO_LOGIN(2004,"当前操作需要登陆，请登陆!"),

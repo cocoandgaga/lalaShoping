@@ -22,4 +22,9 @@
     select CUSTOMER_ID, LOGIN_NAME, PASSWORD, USER_STATUS, MODIFIED_TIME, EMAIL, mobile
     from c_login
   </select>
+
+  <update id="updateLoginName" parameterType="String">
+    update c_login set LOGIN_NAME=#{loginName,jdbcType=VARCHAR}
+     where CUSTOMER_ID=#{customerId,jdbcType=VARCHAR}
+  </update>
 </mapper>

@@ -25,23 +25,47 @@
             生成model模型，对应的包路径，以及文件存放路径(targetProject)，targetProject可以指定具体的路径
          也可以使用“MAVEN”来自动生成，这样生成的代码会在target/generatord-source目录下
         -->
-        <javaModelGenerator targetPackage="com.goktech.olala.server.pojo.wareh" targetProject="${project}">
+        <javaModelGenerator targetPackage="com.goktech.olala.server.pojo.goods" targetProject="${project}">
             <property name="enableSubPackages" value="true" />
             <!-- 从数据库返回的值被清理前后的空格  -->
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
         <!--对应的mapper.xml文件  -->
-        <sqlMapGenerator targetPackage="com.goktech.olala.server.mapper.wareh" targetProject="${project}">
+        <sqlMapGenerator targetPackage="com.goktech.olala.server.mapper.goods" targetProject="${project}">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
 
         <!-- 对应的Mapper接口类文件 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.goktech.olala.server.dao.wareh" targetProject="${project}">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.goktech.olala.server.dao.goods" targetProject="${project}">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
-        <!-- 生成那些表，tableName对应数据库表，domainObjectName对应实体类名 -->
-        <table tableName="w_goods" domainObjectName="WGoods" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
-
+       <!-- &lt;!&ndash; 生成那些表，tableName对应数据库表，domainObjectName对应实体类名 &ndash;&gt;
+        <table tableName="o_order_detail" domainObjectName="OrderDetail" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
+        <table tableName="o_order_master" domainObjectName="OrderMaster" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
+        <table tableName="o_shop_cart" domainObjectName="OrderShopCart" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>-->
+        <table tableName="g_business" domainObjectName="GoodsBusiness" enableCountByExample="true"
+               enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"/>
+        <table tableName="g_categ_busi" domainObjectName="GoodsCategBusi" enableCountByExample="true"
+               enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"/>
+        <table tableName="g_category" domainObjectName="GoodsCategory" enableCountByExample="true"
+               enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"/>
+        <table tableName="g_goods" domainObjectName="Goods" enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"/>
+        <table tableName="g_goods_brand" domainObjectName="GoodsBrand" enableCountByExample="true"
+               enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"/>
+        <table tableName="g_goods_param" domainObjectName="GoodsParam" enableCountByExample="true"
+               enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"/>
+        <table tableName="g_goods_report" domainObjectName="GoodsReport" enableCountByExample="true"
+               enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"/>
+        <table tableName="g_picture" domainObjectName="GoodsPicture" enableCountByExample="true"
+               enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"/>
     </context>
 </generatorConfiguration>

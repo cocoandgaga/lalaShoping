@@ -3,6 +3,7 @@ package com.goktech.olala.client.controller.customer;
 
 import com.goktech.olala.core.exception.CustomizeErrorCode;
 import com.goktech.olala.core.exception.ResultDTO;
+import com.goktech.olala.core.service.impl.CtmLoginService;
 import com.goktech.olala.core.service.impl.PersonInfoService;
 import com.goktech.olala.server.pojo.customer.CtmConsignee;
 import com.goktech.olala.server.pojo.customer.CtmCustomerInfo;
@@ -22,6 +23,8 @@ public class PersonInfoController {
 
     @Autowired
     PersonInfoService personInfoService;
+    @Autowired
+    CtmLoginService ctmLoginService;
 
     //查询用户个人信息
     @GetMapping("/queryCustomerInfo/{id}")
@@ -140,12 +143,11 @@ public class PersonInfoController {
     public Object updateConsigneeDefault(HttpServletRequest request,
                                   @RequestParam("customerAddrId")Integer customerAddrId) {
 
-        //        CtmLogin login_user = (CtmLogin) request.getSession().getAttribute("login_user");
-        CtmLogin login_user = new CtmLogin();
-        login_user.setCustomerId("1");
+        CtmLogin login_user = (CtmLogin) request.getSession().getAttribute("login_user");
         if (login_user != null) {
             String customerId = login_user.getCustomerId();
             List<CtmConsignee> ctmConsignees = personInfoService.listAddresses(customerId);
+            request.getSession().setAttribute("login_user",login_user);
             for (int i = 0; i < ctmConsignees.size(); i++) {
                 CtmConsignee ctmConsignee = ctmConsignees.get(i);
                 ctmConsignee.setIsDefault(false);
@@ -174,54 +176,61 @@ public class PersonInfoController {
                                      @RequestParam(value = "birthday", required = false) String birthday,
                                      HttpServletRequest request, Model model) {
 
-        CtmCustomerInfo customerInfo = new CtmCustomerInfo();
-        customerInfo.setCustomerId(customerId);
-        customerInfo.setCustomerName(customerName);
-        customerInfo.setRealName(realName);
-        customerInfo.setEmail(email);
-        customerInfo.setGender(gender);
-        customerInfo.setMobile(mobile);
-        customerInfo.setBirthday(birthday);
-        Date nowTime = new Date(System.currentTimeMillis());
-        customerInfo.setModifiedTime(nowTime);
+        CtmLogin login_user = (CtmLogin) request.getSession().getAttribute("login_user");
+        if (login_user != null) {
+            CtmCustomerInfo customerInfo = new CtmCustomerInfo();
+            customerInfo.setCustomerId(customerId);
 
-        model.addAttribute("customerName", customerName);
-        model.addAttribute("realName", realName);
-        model.addAttribute("email", email);
-        model.addAttribute("gender", gender);
-        model.addAttribute("mobile", mobile);
-        model.addAttribute("birthday", birthday);
+            customerInfo.setCustomerName(customerName);
+            customerInfo.setRealName(realName);
+            customerInfo.setEmail(email);
+            customerInfo.setGender(gender);
+            customerInfo.setMobile(mobile);
+            customerInfo.setBirthday(birthday);
+            Date nowTime = new Date(System.currentTimeMillis());
+            customerInfo.setModifiedTime(nowTime);
+            model.addAttribute("customerName", customerName);
+            login_user.setLoginName(customerName);
+            ctmLoginService.updateLoginName(login_user);
+            model.addAttribute("realName", realName);
+            model.addAttribute("email", email);
+            model.addAttribute("gender", gender);
+            model.addAttribute("mobile", mobile);
+            model.addAttribute("birthday", birthday);
 
-        if (customerName == null || customerName.equals("")) {
-            model.addAttribute("error", "昵称不能为空");
-            return "person/information";
-        }
-        if (realName == null || realName.equals("")) {
-            model.addAttribute("error", "真实姓名不能为空");
-            return "person/information";
-        }
-        if (email == null || email.equals("")) {
-            model.addAttribute("error", "邮箱不能为空");
-            return "person/information";
-        }
+            if (customerName == null || customerName.equals("")) {
+                model.addAttribute("error", "昵称不能为空");
+                return "person/information";
+            }
+            if (realName == null || realName.equals("")) {
+                model.addAttribute("error", "真实姓名不能为空");
+                return "person/information";
+            }
+            if (email == null || email.equals("")) {
+                model.addAttribute("error", "邮箱不能为空");
+                return "person/information";
+            }
 
-        if (gender == null || gender.equals("")) {
-            model.addAttribute("error", "性别不能为空");
-            return "person/information";
-        }
-        if (mobile == null || mobile.equals("")) {
-            model.addAttribute("error", "手机号码不能为空");
-            return "person/information";
-        }
-        if (birthday == null || birthday.equals("")) {
-            model.addAttribute("error", "生日不能为空");
-            return "person/information";
-        }
+            if (gender == null || gender.equals("")) {
+                model.addAttribute("error", "性别不能为空");
+                return "person/information";
+            }
+            if (mobile == null || mobile.equals("")) {
+                model.addAttribute("error", "手机号码不能为空");
+                return "person/information";
+            }
+            if (birthday == null || birthday.equals("")) {
+                model.addAttribute("error", "生日不能为空");
+                return "person/information";
+            }
 
-        personInfoService.updateCtmInfo(customerInfo);
-        return ResultDTO.okOf();
+            personInfoService.updateCtmInfo(customerInfo);
+            request.getSession().setAttribute("login_user",login_user);
+            return ResultDTO.okOf();
+        }else {
+            return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
+        }
     }
-
 
 }
 

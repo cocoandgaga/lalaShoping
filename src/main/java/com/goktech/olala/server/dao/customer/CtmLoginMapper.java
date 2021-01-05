@@ -7,4 +7,6 @@ public interface CtmLoginMapper {
     int insert(CtmLogin record);
 
     List<CtmLogin> selectAll();
+
+    void updateLoginName(CtmLogin login);
 }

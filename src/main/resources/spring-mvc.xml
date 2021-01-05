@@ -78,7 +78,7 @@
         <!-- 内存中的最大值 -->
         <property name="maxInMemorySize" value="40960" />
     </bean>
-
+    <context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true" />
     <!-- 开启spring注解支持 -->
     <mvc:annotation-driven/>
     <!-- 加载静态资源 -->

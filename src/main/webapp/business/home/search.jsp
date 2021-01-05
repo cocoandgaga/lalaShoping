@@ -5,8 +5,8 @@
   Time: 14:29
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -49,7 +49,9 @@
         </div>
         <div class="topMessage favorite">
             <div class="menu-hd"><a href="${pageContext.request.contextPath}/business/person/collection.html" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
+        </div>
     </ul>
+
 </div>
 
 <!--悬浮搜索框-->
@@ -62,8 +64,8 @@
 
     <div class="search-bar pr">
         <a name="index_none_header_sysc" href="search.html"></a>
-        <form>
-            <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
+        <form action="${pageContext.request.contextPath}/search" method="get">
+            <input id="searchInput" name="searchStr" type="text" placeholder="搜索" value="${search}" autocomplete="off">
             <input id="ai-topsearch" class="submit am-btn"  value="搜索" index="1" type="submit">
         </form>
     </div>
@@ -104,7 +106,7 @@
                     <ul class="select">
                         <p class="title font-normal">
                             <span class="fl">松子</span>
-                            <span class="total fl">搜索到<strong class="num">997</strong>件相关商品</span>
+                            <span class="total fl">搜索到<strong class="num">${pagination.totalCnt}</strong>件相关商品</span>
                         </p>
                         <div class="clear"></div>
                         <li class="select-result">
@@ -169,173 +171,22 @@
                     <div class="clear"></div>
 
                     <ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes">
+                        <c:forEach items="${pagination.data}" var="goods">
                         <li>
                             <div class="i-pic limit">
-                                <img src="${pageContext.request.contextPath}/business/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
+                                <img src="${goods.realImg}" style="width: 200px;height: 250px">
+                                <p class="title fl">${goods.goodsBrief}</p>
                                 <p class="price fl">
                                     <b>¥</b>
-                                    <strong>56.90</strong>
+                                    <strong>${goods.shopPrice}</strong>
                                 </p>
                                 <p class="number fl">
-                                    销量<span>1110</span>
+                                    销量<span>${goods.monthSales}</span>
                                 </p>
                             </div>
                         </li>
-                        <li>
-                            <div class="i-pic limit">
 
-                                <img src="${pageContext.request.contextPath}/business/images/imgsearch1.jpg" />
-                                <p class="title fl">手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="i-pic limit">
-
-                                <img src="${pageContext.request.contextPath}/business/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="i-pic limit">
-
-                                <img src="${pageContext.request.contextPath}/business/images/imgsearch1.jpg" />
-                                <p class="title fl">手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="i-pic limit">
-
-                                <img src="${pageContext.request.contextPath}/business/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="i-pic limit">
-
-                                <img src="${pageContext.request.contextPath}/business/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="i-pic limit">
-
-                                <img src="${pageContext.request.contextPath}/business/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="i-pic limit">
-
-                                <img src="${pageContext.request.contextPath}/business/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="i-pic limit">
-
-                                <img src="${pageContext.request.contextPath}/business/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="i-pic limit">
-
-                                <img src="${pageContext.request.contextPath}/business/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="i-pic limit">
-
-                                <img src="${pageContext.request.contextPath}/business/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="i-pic limit">
-
-                                <img src="${pageContext.request.contextPath}/business/images/imgsearch1.jpg" />
-                                <p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-                                <p class="price fl">
-                                    <b>¥</b>
-                                    <strong>56.90</strong>
-                                </p>
-                                <p class="number fl">
-                                    销量<span>1110</span>
-                                </p>
-                            </div>
-                        </li>
+                        </c:forEach>
                     </ul>
                 </div>
                 <div class="search-side">
@@ -388,13 +239,22 @@
                 <div class="clear"></div>
                 <!--分页 -->
                 <ul class="am-pagination am-pagination-right">
-                    <li class="am-disabled"><a href="#">&laquo;</a></li>
-                    <li class="am-active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&raquo;</a></li>
+                    <c:if test="${pagination.data.size()!=0}"> 
+                            <c:if test="${pagination.showPreviousPage}">
+                                <li><a href="${pageContext.request.contextPath}/search/?page=${pagination.page-1}">&laquo;</a></li>
+                            </c:if>
+                            <c:forEach var="page" items="${pagination.pageList}">
+                                <c:if test="${pagination.page==page}">
+                                <li class="am-active"><a href="${pageContext.request.contextPath}/search/?page=${page}">${page}</a></li>
+                                </c:if>
+                                <c:if test="${pagination.page!=page}">
+                                <li><a href="${pageContext.request.contextPath}/search/?page=${page}">${page}</a></li>
+                                </c:if>
+                            </c:forEach>
+                            <c:if test="${pagination.showNextPage}">
+                                <li><a href="${pageContext.request.contextPath}/search/?page=${pagination.page+1}">&raquo;</a></li>
+                            </c:if>
+                    </c:if>
                 </ul>
 
             </div>

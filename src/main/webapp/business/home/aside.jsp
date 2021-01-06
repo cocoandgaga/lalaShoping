@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <ul>
     <li class="person active">
-        <a href="${pageContext.request.contextPath}/business/person/index.jsp"><i class="am-icon-user"></i>个人中心</a>
+        <a href="${pageContext.request.contextPath}/queryCustomerInfo/1"><i class="am-icon-user"></i>个人中心</a>
     </li>
     <li class="person">
         <p><i class="am-icon-newspaper-o"></i>个人资料</p>

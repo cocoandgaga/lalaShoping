@@ -17,5 +17,5 @@ public interface CtmLoginMapper {
 
     CtmLogin selectPwdById(String customerId);
 
-
+    void updatePwd(CtmLogin login_user);
 }

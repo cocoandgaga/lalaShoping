@@ -19,10 +19,10 @@ public class CustomizeExceptionHandler {
     ModelAndView handleControllerException(Throwable e, Model model, HttpServletResponse response) {
         String contentType = response.getContentType();
         if ("application/json".equals(contentType)) {
-            ResultDTO resultDTO = null;
+            ResultDTO resultDTO=null;
             if (e instanceof CustomizeException) {
                 //赋值code、message的封装
-                resultDTO = resultDTO.errorOf((CustomizeException) e);
+                resultDTO = ResultDTO.errorOf((CustomizeException) e);
             } else {
                 resultDTO = ResultDTO.errorOf(CustomizeErrorCode.SYS_ERROR);
             }
@@ -38,12 +38,13 @@ public class CustomizeExceptionHandler {
             }
             return null;
         }
+        ModelAndView modelAndView = new ModelAndView("error");
         if (e instanceof CustomizeException) {
-            model.addAttribute("message", e.getMessage());
+           modelAndView.addObject("message", e.getMessage());
         } else {
-            model.addAttribute("message", CustomizeErrorCode.SYS_ERROR.getMessage());
+            modelAndView.addObject("message", CustomizeErrorCode.SYS_ERROR.getMessage());
         }
-        return new ModelAndView("error");//定义的页面
+        return modelAndView;//定义的页面
 
     }
 }

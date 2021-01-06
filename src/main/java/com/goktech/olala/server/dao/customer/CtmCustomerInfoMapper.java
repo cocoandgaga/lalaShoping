@@ -21,5 +21,4 @@ public interface CtmCustomerInfoMapper {
 
     int insertInfo(CtmCustomerInfo customerInfo);
 
-    void updatePwd(CtmLogin record);
 }

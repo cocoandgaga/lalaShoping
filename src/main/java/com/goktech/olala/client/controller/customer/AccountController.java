@@ -49,25 +49,32 @@ public class AccountController{
 
     }
 
-    @PostMapping("/updatepassword.do")
+    @PostMapping("/updatepassword")
     @ResponseBody
     public Object updatepassword(@RequestParam("old_password") String old_password,
                                  @RequestParam("new_password") String new_password,
                                  @RequestParam("confirm_password") String confirm_password,
                                  HttpServletRequest request){
         CtmLogin login_user = (CtmLogin) request.getSession().getAttribute("login_user");
-        if (ctmLoginService.selectByCustomId(login_user.getCustomerId()).getPassword().equals(old_password)){
-            if (new_password.equals(confirm_password)){
-                login_user.setPassword(new_password);
-                ctmCustomerInfoService.updatePwd(login_user);
-                return ResultDTO.okOf();
-            }else{
-                return ResultDTO.errorOf(CustomizeErrorCode.PWD_NOT_THE_SAME);
+        if (login_user!=null) {
+            if (new_password!=null&&confirm_password!=null) {
+                if (ctmLoginService.selectByCustomId(login_user.getCustomerId()).getPassword().equals(old_password)) {
+                    if (new_password.equals(confirm_password)) {
+                        login_user.setPassword(new_password);
+                        ctmLoginService.updatePwd(login_user);
+                        request.getSession().setAttribute("login_user",login_user);
+                        return ResultDTO.okOf();
+                    } else {
+                        return ResultDTO.errorOf(CustomizeErrorCode.PWD_NOT_THE_SAME);
+                    }
+                } else {
+                    return ResultDTO.errorOf(CustomizeErrorCode.WRONG_PASSWORD);
+                }
+            }else {
+                ResultDTO.errorOf(CustomizeErrorCode.PASSWORD_NULL);
             }
-        }else {
-            return ResultDTO.errorOf(CustomizeErrorCode.WRONG_PASSWORD);
         }
-
+        return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
     }
 
     //注册操作的controller
@@ -123,12 +130,12 @@ public class AccountController{
     }
 
     @RequestMapping(value = "/loginOut.do")
-    public String loginOut(HttpServletRequest request) throws Exception {
+    public String loginOut(HttpServletRequest request) {
         CtmLogin ctmLogin = (CtmLogin) request.getSession().getAttribute("login_user");
         ctmLogin.setUserStatus(false);
         ctmLoginService.updateByCustomerId(ctmLogin);
         request.getSession().removeAttribute("login_user");
 
-        return "redirect:/business/home/index.jsp";
+        return "redirect:/index";
     }
 }

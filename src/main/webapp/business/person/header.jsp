@@ -15,14 +15,15 @@
                             <a href="#" target="_top">欢迎你,${sessionScope.login_user.loginName}</a>
                             <a href="${pageContext.request.contextPath}/cntApi/loginOut.do" target="_top">退出登录</a>
                         </c:if>
+                    </div>
                 </div>
             </ul>
             <ul class="message-r">
                 <div class="topMessage home">
-                    <div class="menu-hd"><a href="${pageContext.request.contextPath}/business/home/index.html" target="_top" class="h">商城首页</a></div>
+                    <div class="menu-hd"><a href="${pageContext.request.contextPath}/index" target="_top" class="h">商城首页</a></div>
                 </div>
                 <div class="topMessage my-shangcheng">
-                    <div class="menu-hd MyShangcheng"><a href="${pageContext.request.contextPath}/business/frame.html" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
+                    <div class="menu-hd MyShangcheng"><a href="${pageContext.request.contextPath}/queryCustomerInfo/1" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
                 </div>
                 <div class="topMessage mini-cart">
                     <div class="menu-hd"><a id="mc-menu-hd" href="${pageContext.request.contextPath}/business/home/shopcart.html" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h">0</strong></a></div>
@@ -39,12 +40,11 @@
             <div class="logoBig">
                 <li><img src="${pageContext.request.contextPath}/business/images/logobig.png" /></li>
             </div>
-
             <div class="search-bar pr">
-                <a name="index_none_header_sysc" href="${pageContext.request.contextPath}/business/home/search.html"></a>
-                <form>
-                    <input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
-                    <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
+                <a name="index_none_header_sysc" href="${pageContext.request.contextPath}/search"></a>
+                <form action="${pageContext.request.contextPath}/search" method="get">
+                    <input id="searchInput" name="searchStr" type="text" placeholder="搜索"  autocomplete="off">
+                    <input id="ai-topsearch" class="submit am-btn"  value="搜索" index="1" type="submit">
                 </form>
             </div>
         </div>

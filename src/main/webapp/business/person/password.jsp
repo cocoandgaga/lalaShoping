@@ -91,26 +91,27 @@
 </body>
 
 <script type="text/javascript">
-    let u_old = $('#user-old-password').val();
-    let u_new = $('#user-new-password').val();
-    let u_confirm= $('#user-confirm-password').val();
-    $.ajax({
-        type: 'POST',
-        url: '${pageContext.request.contextPath}/cntApi/updatepassword.do',
-        data: {
-            "old_password": u_old,
-            "new_password": u_new,
-            "confirm_password": u_confirm
-        },
-        success: function (data) {
-            if (data.code == '200'){
-                alert("修改密码成功");
-            }else{
-                alert(data.message);
+    $('.info-btn').click(function () {
+        let u_old = $('#user-old-password').val();
+        let u_new = $('#user-new-password').val();
+        let u_confirm= $('#user-confirm-password').val();
+        $.ajax({
+            type: 'POST',
+            url: '${pageContext.request.contextPath}/cntApi/updatepassword',
+            data: {
+                "old_password": u_old,
+                "new_password": u_new,
+                "confirm_password": u_confirm
+            },
+            success: function (data) {
+                if (data.code == '200'){
+                    alert("修改密码成功");
+                }else{
+                    alert(data.message);
+                }
             }
-        }
+        })
     })
-
 </script>
 
 <script>

@@ -96,7 +96,7 @@
                                 </div>
                                 <div class="birth-select2">
                                     <input type="hidden" id="month_val" value="${month}">
-                                    <select   id="month" name="month">
+                                    <select id="month" name="month">
                                     </select>
                                     <em>月</em></div>
                                 <div class="birth-select2">
@@ -202,12 +202,13 @@
                 "email": email,
                 "birthday": birthday
             },
-            success: function (data) {
-                    console.log(data);
-                    if(data.code == "200"){
+            success: function (response) {
+                    console.log(response);
+                    if(response.code == "200"){
+                        alert("修改成功")
                          window.location.reload();
                     }else{
-                       alert('错误信息:'+data.message);
+                       alert('错误信息:'+response.message);
                     }
                 }
         });
@@ -285,7 +286,7 @@
                     }
                 default :break
             }
-            for(day=1;day<=total;day++){
+            for(let day=1;day<=total;day++){
                 currentDay=currentDay+'<option value="'+day+'">'+day+'</option>'
             }
             $('#dateForm select[name=day]').html(currentDay);//生成日期下拉列表

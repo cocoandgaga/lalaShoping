@@ -34,23 +34,24 @@ public class PersonInfoController {
             CtmCustomerInfo ctmInfo = personInfoService.listCtmAllInfo(login_user);
             List<CtmConsignee> ctmAddresses = personInfoService.listAddresses(ctmInfo.getCustomerId());
             if (ctmAddresses!=null) {
-                String birthday = ctmInfo.getBirthday();
-                String[] split = birthday.split("\\.");
-                String year = split[0];
-                String month = split[1];
-                String day = split[2];
-
                 model.addAttribute("ctmAddresses", ctmAddresses);
-                model.addAttribute("year", year);
-                model.addAttribute("month", month);
-                model.addAttribute("day", day);
-            }
 
+            }
+            String birthday = ctmInfo.getBirthday();
+            String[] split = birthday.split("\\.");
+            String year = split[0];
+            String month = split[1];
+            String day = split[2];
+            model.addAttribute("year", year);
+            model.addAttribute("month", month);
+            model.addAttribute("day", day);
             model.addAttribute("ctmInfo", ctmInfo);
-            if (id.equals("1"))
+            if (id.equals("1")) {
                 return "/person/information";
-            else if (id.equals("2"))
+            }
+            else if (id.equals("2")) {
                 return "/person/safety";
+            }
         }
         return "/home/login";
     }
@@ -72,7 +73,7 @@ public class PersonInfoController {
     }
 
     @GetMapping("/deleteConsignee/{customerAddrId}")
-    public String deleteConsignee(@PathVariable Integer customerAddrId, Model model,
+    public String deleteConsignee(@PathVariable Integer customerAddrId,
                                   HttpServletRequest request) {
          CtmLogin login_user = (CtmLogin) request.getSession().getAttribute("login_user");
 
@@ -200,30 +201,12 @@ public class PersonInfoController {
             model.addAttribute("mobile", mobile);
             model.addAttribute("birthday", birthday);
 
-            if (customerName == null || customerName.equals("")) {
-                model.addAttribute("error", "昵称不能为空");
-                return "person/information";
-            }
-            if (realName == null || realName.equals("")) {
-                model.addAttribute("error", "真实姓名不能为空");
-                return "person/information";
-            }
-            if (email == null || email.equals("")) {
-                model.addAttribute("error", "邮箱不能为空");
-                return "person/information";
-            }
-
-            if (gender == null || gender.equals("")) {
-                model.addAttribute("error", "性别不能为空");
-                return "person/information";
-            }
-            if (mobile == null || mobile.equals("")) {
-                model.addAttribute("error", "手机号码不能为空");
-                return "person/information";
-            }
-            if (birthday == null || birthday.equals("")) {
-                model.addAttribute("error", "生日不能为空");
-                return "person/information";
+            if (customerName == null|| customerName.equals("")||
+                    realName == null || realName.equals("")||
+                    email == null || email.equals("")||
+                    gender == null || gender.equals("")||mobile == null ||
+                    mobile.equals("")||birthday == null || birthday.equals("")) {
+                return ResultDTO.errorOf(CustomizeErrorCode.INFO_NOT_COMPLETE);
             }
 
             personInfoService.updateCtmInfo(customerInfo);

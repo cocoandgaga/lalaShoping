@@ -34,6 +34,7 @@
                     <div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">地址管理</strong> / <small>Address&nbsp;list</small></div>
                 </div>
                 <hr/>
+                <c:if test="${ctmAddresses!=null}">
                 <ul class="am-avg-sm-1 am-avg-md-3 am-thumbnails">
                     <c:forEach var="addr" items="${ctmAddresses}">
                         <c:if test="${addr.isDefault}">
@@ -64,6 +65,7 @@
                             </li>
                     </c:forEach>
                 </ul>
+                </c:if>
                 <div class="clear"></div>
                 <a class="new-abtn-type" data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0}">添加新地址</a>
                 <!--例子-->
@@ -1009,6 +1011,7 @@
                 {name: '大兴安岭地区', areaList: ['呼玛县', '塔河县', '漠河县']}
             ]
         },
+
         {
             name: '海南', cityList: [
                 {name: '海口市', areaList: ['市辖区', '秀英区', '龙华区', '琼山区', '美兰区']},
@@ -1020,13 +1023,15 @@
             ]
         },
         {
-            name: '台湾', cityList: []
+            name: '香港', cityList: [
+                {name:"香港",areaList: ['香港']}
+                ]
         },
         {
-            name: '香港', cityList: []
+            name: '澳门', cityList: [{name:'澳门',areaList: ['澳门']}]
         },
         {
-            name: '澳门', cityList: []
+            name: '台湾', cityList: [{name:'台湾',areaList: ['台湾']}]
         }
     ];
     //保存省
@@ -1048,8 +1053,6 @@
         provinceArray[i]=provinceName;
         provinceTag.add(new Option(provinceName,provinceName));
     }
-
-
 
 
     //选择省

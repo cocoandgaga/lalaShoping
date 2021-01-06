@@ -57,7 +57,7 @@ public class AccountController{
                                  HttpServletRequest request){
         CtmLogin login_user = (CtmLogin) request.getSession().getAttribute("login_user");
         if (ctmLoginService.selectByCustomId(login_user.getCustomerId()).getPassword().equals(old_password)){
-            if (new_password.equals(old_password)){
+            if (new_password.equals(confirm_password)){
                 login_user.setPassword(new_password);
                 ctmCustomerInfoService.updatePwd(login_user);
                 return ResultDTO.okOf();

@@ -96,7 +96,7 @@
     let u_confirm= $('#user-confirm-password').val();
     $.ajax({
         type: 'POST',
-        url: '${pageContext.request.contextPath}/updatepassword',
+        url: '${pageContext.request.contextPath}/cntApi/updatepassword.do',
         data: {
             "old_password": u_old,
             "new_password": u_new,

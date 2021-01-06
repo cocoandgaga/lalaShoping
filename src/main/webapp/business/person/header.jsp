@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <article>
     <div class="mt-logo" >
         <!--顶部导航条 -->
@@ -6,9 +7,14 @@
             <ul class="message-l">
                 <div class="topMessage">
                     <div class="menu-hd">
-                        <a href="${pageContext.request.contextPath}/business/home/login.html" target="_top" class="h">亲，请登录</a>
-                        <a href="${pageContext.request.contextPath}/business/home/register.html" target="_top">免费注册</a>
-                    </div>
+                        <c:if test="${sessionScope.login_user == null}" var="result">
+                            <a href="${pageContext.request.contextPath}/business/home/login.jsp" target="_top" class="h">亲，请登录</a>
+                            <a href="${pageContext.request.contextPath}/business/home/register.jsp" target="_top">免费注册</a>
+                        </c:if>
+                        <c:if test="${!result}">
+                            <a href="#" target="_top">欢迎你,${sessionScope.login_user.loginName}</a>
+                            <a href="${pageContext.request.contextPath}/cntApi/loginOut.do" target="_top">退出登录</a>
+                        </c:if>
                 </div>
             </ul>
             <ul class="message-r">

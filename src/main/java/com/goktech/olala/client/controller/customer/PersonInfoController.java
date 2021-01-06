@@ -3,7 +3,7 @@ package com.goktech.olala.client.controller.customer;
 
 import com.goktech.olala.core.exception.CustomizeErrorCode;
 import com.goktech.olala.core.exception.ResultDTO;
-import com.goktech.olala.core.service.impl.CtmLoginService;
+import com.goktech.olala.core.service.CtmLoginService;
 import com.goktech.olala.core.service.impl.PersonInfoService;
 import com.goktech.olala.server.pojo.customer.CtmConsignee;
 import com.goktech.olala.server.pojo.customer.CtmCustomerInfo;
@@ -29,37 +29,36 @@ public class PersonInfoController {
     //查询用户个人信息
     @GetMapping("/queryCustomerInfo/{id}")
     public String queryCustomerInfo(HttpServletRequest request, Model model,@PathVariable(value = "id")String id) {
-//        CtmLogin login_user = (CtmLogin) request.getSession().getAttribute("login_user");
-        CtmLogin login_user = new CtmLogin();
-        login_user.setCustomerId("1");
+        CtmLogin login_user = (CtmLogin) request.getSession().getAttribute("login_user");
         if (login_user != null) {
             CtmCustomerInfo ctmInfo = personInfoService.listCtmAllInfo(login_user);
             List<CtmConsignee> ctmAddresses = personInfoService.listAddresses(ctmInfo.getCustomerId());
+            if (ctmAddresses!=null) {
+                String birthday = ctmInfo.getBirthday();
+                String[] split = birthday.split("\\.");
+                String year = split[0];
+                String month = split[1];
+                String day = split[2];
 
-            String birthday = ctmInfo.getBirthday();
-            String[] split = birthday.split("\\.");
-            String year = split[0];
-            String month = split[1];
-            String day = split[2];
+                model.addAttribute("ctmAddresses", ctmAddresses);
+                model.addAttribute("year", year);
+                model.addAttribute("month", month);
+                model.addAttribute("day", day);
+            }
 
-            model.addAttribute("ctmAddresses", ctmAddresses);
             model.addAttribute("ctmInfo", ctmInfo);
-            model.addAttribute("year", year);
-            model.addAttribute("month", month);
-            model.addAttribute("day", day);
             if (id.equals("1"))
                 return "/person/information";
             else if (id.equals("2"))
                 return "/person/safety";
         }
-        return "";
+        return "/home/login";
     }
 
     @GetMapping("/queryCustomerConsignee")
-    public String queryCustomerConsignee(Model model) {
-        //        CtmLogin login_user = (CtmLogin) request.getSession().getAttribute("login_user");
-        CtmLogin login_user = new CtmLogin();
-        login_user.setCustomerId("1");
+    public String queryCustomerConsignee(Model model,HttpServletRequest request) {
+                CtmLogin login_user = (CtmLogin) request.getSession().getAttribute("login_user");
+
         if (login_user != null) {
             CtmCustomerInfo ctmCustomerInfo = personInfoService.listCtmAllInfo(login_user);
             List<CtmConsignee> ctmAddresses = personInfoService.listAddresses(login_user.getCustomerId());
@@ -75,9 +74,8 @@ public class PersonInfoController {
     @GetMapping("/deleteConsignee/{customerAddrId}")
     public String deleteConsignee(@PathVariable Integer customerAddrId, Model model,
                                   HttpServletRequest request) {
-        //        CtmLogin login_user = (CtmLogin) request.getSession().getAttribute("login_user");
-        CtmLogin login_user = new CtmLogin();
-        login_user.setCustomerId("1");
+         CtmLogin login_user = (CtmLogin) request.getSession().getAttribute("login_user");
+
         if (login_user != null) {
             personInfoService.deleteAddressInfo(customerAddrId);
         }
@@ -87,9 +85,14 @@ public class PersonInfoController {
     @GetMapping("/updateConsignee/{customerAddrId}")
     public String updateConsignee(@PathVariable Integer customerAddrId,
                                   HttpServletRequest request,Model model){
+        CtmLogin login_user = (CtmLogin) request.getSession().getAttribute("login_user");
+        if (login_user!=null){
         CtmConsignee ctmConsignee = personInfoService.listAddressesByAddressId(customerAddrId);
         model.addAttribute("ctmConsignee",ctmConsignee);
         return "/person/editaddr";
+        }else {
+            return "/home/login";
+        }
     }
 
 
@@ -105,9 +108,8 @@ public class PersonInfoController {
                                   @RequestParam(value = "district",required = false)String district,
                                   @RequestParam(value = "address",required = false)String address) {
 
-        //        CtmLogin login_user = (CtmLogin) request.getSession().getAttribute("login_user");
-        CtmLogin login_user = new CtmLogin();
-        login_user.setCustomerId("1");
+        CtmLogin login_user = (CtmLogin) request.getSession().getAttribute("login_user");
+
         if (login_user != null)  {
             if (address == null || address.equals("")||
                     recvName== null || recvName.equals("")||
@@ -231,11 +233,6 @@ public class PersonInfoController {
             return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
         }
     }
-
-
-   /* public String editPassword(@RequestParam String pa){
-                re
-    }*/
 
 }
 

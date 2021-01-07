@@ -47,13 +47,13 @@ public class PersonInfoController {
             model.addAttribute("day", day);
             model.addAttribute("ctmInfo", ctmInfo);
             if (id.equals("1")) {
-                return "/person/information";
+                return "business/person/information";
             }
             else if (id.equals("2")) {
-                return "/person/safety";
+                return "business/person/safety";
             }
         }
-        return "/home/login";
+        return "business/home/login";
     }
 
     @GetMapping("/queryCustomerConsignee")
@@ -66,9 +66,9 @@ public class PersonInfoController {
 
             model.addAttribute("ctmAddresses", ctmAddresses);
             model.addAttribute("ctmCustomerInfo", ctmCustomerInfo);
-            return "person/address";
+            return "business/person/address";
         } else {
-            return "home/login";
+            return "business/home/login";
         }
     }
 
@@ -90,9 +90,9 @@ public class PersonInfoController {
         if (login_user!=null){
         CtmConsignee ctmConsignee = personInfoService.listAddressesByAddressId(customerAddrId);
         model.addAttribute("ctmConsignee",ctmConsignee);
-        return "/person/editaddr";
+        return "business/person/editaddr";
         }else {
-            return "/home/login";
+            return "business/home/login";
         }
     }
 

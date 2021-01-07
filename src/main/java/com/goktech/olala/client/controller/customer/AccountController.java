@@ -36,7 +36,7 @@ public class AccountController{
         //登录失败
         if(!ctmLogin.getPassword().equals(pwd)){
             request.setAttribute("pwdError",true);
-            return "home/login";
+            return "business/home/login";
         }
         //登录成功
         else{
@@ -99,7 +99,7 @@ public class AccountController{
             //密码不一致
             if(!passwordRepeat.equals(password)){
                 request.setAttribute("error","密码不一致,重新输入！");
-                return "home/register";
+                return "business/home/register";
             }
             //注册成功
             else{
@@ -124,7 +124,7 @@ public class AccountController{
         }
         catch (Exception e){
             e.printStackTrace();
-            return "home/register";
+            return "business/home/register";
         }
 
     }

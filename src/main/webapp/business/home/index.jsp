@@ -1698,7 +1698,7 @@
 <div class="navCir">
     <li class="active"><a href="home2.html"><i class="am-icon-home "></i>首页</a></li>
     <li><a href="sort.html"><i class="am-icon-list"></i>分类</a></li>
-    <li><a href="${pageContext.request.contextPath}/business/home/shopcart.jsp"><i class="am-icon-shopping-basket"></i>购物车</a></li>
+    <li><a href="${pageContext.request.contextPath}/shopcar.do"><i class="am-icon-shopping-basket"></i>购物车</a></li>
     <li><a href="${pageContext.request.contextPath}/business/person/index.html"><i class="am-icon-user"></i>我的</a></li>
 </div>
 <!--菜单 -->
@@ -1871,6 +1871,20 @@
         $("div.hmtop").load("${pageContext.request.contextPath}/business/home/head.jsp");
         $("div.footer").load("${pageContext.request.contextPath}/business/home/footer.jsp");
     })
+    $(function() {
+        $.ajax({
+            url: "J_MiniCartNum.do",
+            //不能省略，否则后面的data无法读取
+            data: {
+            },
+            type: "POST",
+            dataType: "html",
+            success: function (data) {//参数data它接受了服务器响应的数据
+                $("#J_MiniCartNum").text(data);
+            }
+        })
+    });
+
 </script>
 <style>
     #js_climit_li{
@@ -1879,6 +1893,16 @@
     }
     #js_climit_li::-webkit-scrollbar {
         display: none;
+    }
+    .menu-item{
+        height: 100%;
+        overflow-x: hidden;
+    }
+    .menu-item::-webkit-scrollbar{
+        display: none;
+    }
+    #J_MiniCartNum{
+        color: orangered;
     }
 </style>
 </html>

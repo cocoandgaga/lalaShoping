@@ -38,7 +38,7 @@ public class CustomizeExceptionHandler {
             }
             return null;
         }
-        ModelAndView modelAndView = new ModelAndView("error");
+        ModelAndView modelAndView = new ModelAndView("business/error");
         if (e instanceof CustomizeException) {
            modelAndView.addObject("message", e.getMessage());
         } else {

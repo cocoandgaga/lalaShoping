@@ -84,8 +84,6 @@
   </servlet-mapping>
 
   <welcome-file-list>
-    <welcome-file>business/home/index.html</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>business/home/index.htm</welcome-file>
+    <welcome-file>business/home/login.jsp</welcome-file>
   </welcome-file-list>
 </web-app>
